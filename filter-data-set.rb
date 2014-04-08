@@ -37,21 +37,24 @@ city_box = {
   }
 }
 
-Zlib::GzipReader.open(location).each_line do |tweet_json|
-  tweet = JSON.parse(tweet_json)
-  if !tweet['coordinates'].nil?
-    # check if coordinates is empty??
-    tweet_coordinates = {
-      lat: tweet['coordinates']['coordinates'][1],
-      lon: tweet['coordinates']['coordinates'][0]
-    }
-    parsed_tweet = filter_tweet(tweet, ['text','coordinates'])
-    puts JSON.pretty_generate(parsed_tweet)
+File.open("file_list.txt").each_line do |file|
+  puts file
+  exit
+  Zlib::GzipReader.open(location).each_line do |tweet_json|
+    tweet = JSON.parse(tweet_json)
+    if !tweet['coordinates'].nil?
+      # check if coordinates is empty??
+      tweet_coordinates = {
+        lat: tweet['coordinates']['coordinates'][1],
+        lon: tweet['coordinates']['coordinates'][0]
+      }
+      parsed_tweet = filter_tweet(tweet, ['text','coordinates'])
+      puts JSON.pretty_generate(parsed_tweet)
 
-    # if within_box?(city_box, tweet_coordinates)
-    #   puts JSON.pretty_generate(tweet)
-    # end
+      # if within_box?(city_box, tweet_coordinates)
+      #   puts JSON.pretty_generate(tweet)
+      # end
+    end
   end
+  exit
 end
-
-
