@@ -10,15 +10,7 @@ def within_box?(box, point)
   return (point[:lon].between?(box_lons.min, box_lons.max) && point[:lat].between?(box_lats.min, box_lats.max))
 end
 
-def filter_tweet(tweet, keys)
-  new_tweet = {}
-  keys.each do |key|
-    new_tweet[key] = tweet[key]
-  end
-  return new_tweet
-end
-
-location = 'tweets01_aaaa.gz'
+# location = 'tweets01_aaaa.gz'
 # location = 'http://dmir.inesc-id.pt/shinra/~bmartins/twitter-data/data/tweets01_aaaa.gz'
 # location = ARGV[0];
 
@@ -37,24 +29,41 @@ city_box = {
   }
 }
 
-File.open("file_list.txt").each_line do |file|
-  puts file
-  exit
-  Zlib::GzipReader.open(location).each_line do |tweet_json|
-    tweet = JSON.parse(tweet_json)
-    if !tweet['coordinates'].nil?
-      # check if coordinates is empty??
-      tweet_coordinates = {
-        lat: tweet['coordinates']['coordinates'][1],
-        lon: tweet['coordinates']['coordinates'][0]
-      }
-      parsed_tweet = filter_tweet(tweet, ['text','coordinates'])
-      puts JSON.pretty_generate(parsed_tweet)
+file_list = 'file_list.txt'
+# base_path = './'
+base_path = 'http://dmir.inesc-id.pt/shinra/~bmartins/twitter-data/data/'
 
-      # if within_box?(city_box, tweet_coordinates)
-      #   puts JSON.pretty_generate(tweet)
-      # end
+File.open('geo_tweets.gz', 'a') do |write_file|
+  write_gz = Zlib::GzipWriter.new(write_file)
+
+  File.open(file_list).read.each_line do |filename|
+    puts "Parsing #{filename.chomp} ..."
+    file = open(base_path + filename.chomp)
+    gz = Zlib::GzipReader.new(file, {encoding: Encoding::UTF_8})
+    gz.each_line do |tweet_json|
+      tweet = JSON.parse(tweet_json)
+      if !tweet['coordinates'].nil?
+        msg = tweet['text']
+        coordinates = {
+          lat: tweet['coordinates']['coordinates'][1],
+          lon: tweet['coordinates']['coordinates'][0]
+        }
+
+        simple_tweet = JSON.generate({
+          text: msg,
+          coordinates: coordinates,
+        });
+
+        write_gz.write simple_tweet
+        # if within_box?(city_box, tweet_coordinates)
+        #   puts JSON.pretty_generate(tweet)
+        # end
+      end
     end
+    gz.close
   end
-  exit
+
+  write_gz.close
+  puts "Parsing #{filename.chomp} ended"
 end
+puts "The End."
