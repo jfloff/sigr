@@ -1,1 +1,7 @@
 *.gz
+*.pem
+*.zip
+*.R*
+*.pem
+*geo_tweets
+.DS_Store
