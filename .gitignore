@@ -3,5 +3,5 @@
 *.zip
 *.R*
 *.pem
-*geo_tweets
+data/
 .DS_Store
