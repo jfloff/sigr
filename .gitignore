@@ -1,9 +1,12 @@
 *.gz
 *.pem
 *.zip
-*.R*
+*.Rapp*
+*.RData
+*.Rhistory
 *.pem
 data/
 .DS_Store
 vadara.pen
 paper/Output/
+paper/papers/
