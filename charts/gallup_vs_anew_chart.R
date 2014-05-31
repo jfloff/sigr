@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(ggplot2)
 library(reshape)
@@ -34,21 +34,21 @@ melted_gallup <- melt(subset(gallup, select=c(state, gallup_score, anew_score)),
 # aesthetic and use the value variable as the response
 plot = ggplot(melted_gallup, aes(x = state, y = value, colour = variable, group = state, width = 0.75)) +
   ggtitle("Differences between LabMT and Gallup Score") +
-  scale_y_continuous(breaks=pretty_breaks(n=22)) + 
+  scale_y_continuous(breaks=pretty_breaks(n=22)) +
   geom_point() +
   geom_line(colour = 'black', size = 0.25) +
-  annotate("text", 
-           x = gallup$state, y = gallup$mean, 
-           label = gallup$diff, 
+  annotate("text",
+           x = gallup$state, y = gallup$mean,
+           label = gallup$diff,
            size = 2.75, vjust=-0.6
   ) +
   expand_limits(x = 49) +
-  coord_flip() + 
+  coord_flip() +
   labs(x = 'State', y = 'Score', colour = 'Score') +
   theme_bw() +
   theme(legend.position="bottom") +
   scale_colour_manual(
-    breaks = levels(melted_gallup$variable), 
+    breaks = levels(melted_gallup$variable),
     values = c('red', 'green'),
     labels = c("Gallup", "LabMT")
   )

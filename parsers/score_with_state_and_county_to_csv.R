@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(rjson)
 library(sp)

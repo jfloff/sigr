@@ -6,7 +6,7 @@ require 'csv'
 require 'unicode_utils/downcase'
 
 
-data_dir = '/Users/jfloff/Code/twitter-mood/data/'
+data_dir = '/Users/jfloff/Code/HappiTweet/data/'
 
 us_anew_words = {}
 us_anew_words_file = data_dir + "hedonometer_anew.csv"

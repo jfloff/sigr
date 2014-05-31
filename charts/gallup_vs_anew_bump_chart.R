@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(ggplot2)
 library(reshape)
@@ -6,7 +6,7 @@ library(scales)
 
 mode <- function(x) {
   d <- density(x, from=1, to=9 , adjust = 0.805)
-  d$x[which.max(d$y)]  
+  d$x[which.max(d$y)]
 }
 
 #gallup data frame
@@ -42,7 +42,7 @@ plot <- ggplot(bump, aes(x=group, y=ranking, group=state, label=state, colour=st
   labs(x = '', y = 'Ranking') +
   geom_text(data = subset(bump, group == "LabMT"), size=3, hjust=1.05) +
   geom_text(data = subset(bump, group == "Gallup"), size=3, hjust=-0.05) +
-  theme_bw() + 
+  theme_bw() +
   theme(legend.position="none") +
   ggtitle("Comparation between LabMT and Gallup rankings by US State")
 

@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(sp)
 library(ggplot2)
@@ -29,7 +29,7 @@ states_polygons$scores_mode = scores_mode[states_polygons$region]
 map = ggplot(states_polygons) +
   aes(long, lat, group=group) +
   geom_polygon() +
-  aes(fill=scores_mode) + 
+  aes(fill=scores_mode) +
   theme_bw() +
   theme(axis.line=element_blank(),
         axis.text.x=element_blank(),
@@ -55,7 +55,7 @@ map = map + scale_fill_gradientn(
 map = map + theme(plot.title=element_text(face="bold"))
 map = map + coord_map(project='globular') + ggtitle("LabMT score for tweets by US State")
 
-map 
+map
 
 png(file="paper/images/scores_by_state.png",width=900,height=450,res=96)
 map

@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(ggplot2)
 library(RColorBrewer)
@@ -22,12 +22,12 @@ mode <- function(x) {
 #
 multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
   require(grid)
-  
+
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
-  
+
   numPlots = length(plots)
-  
+
   # If layout is NULL, then use 'cols' to determine layout
   if (is.null(layout)) {
     # Make the panel
@@ -36,20 +36,20 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
     layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
                      ncol = cols, nrow = ceiling(numPlots/cols))
   }
-  
+
   if (numPlots==1) {
     print(plots[[1]])
-    
+
   } else {
     # Set up the page
     grid.newpage()
     pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
-    
+
     # Make each plot, in the correct location
     for (i in 1:numPlots) {
       # Get the i,j matrix positions of the regions that contain this subplot
       matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
-      
+
       print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
                                       layout.pos.col = matchidx$col))
     }
@@ -63,7 +63,7 @@ texas <- subset(anew_scores, state=='texas')
 texas_mean <- mean(texas$anew_score)
 texas_median <- median(texas$anew_score)
 texas_mode <- mode(texas$anew_score)
-texas_plot <- ggplot(texas, aes(x=anew_score)) + 
+texas_plot <- ggplot(texas, aes(x=anew_score)) +
   geom_histogram(
     aes(y=..density..),
     binwidth=.5,
@@ -79,8 +79,8 @@ texas_plot <- ggplot(texas, aes(x=anew_score)) +
   geom_vline(aes(xintercept = texas_mode), show_guide = TRUE, linetype = "longdash", size = 0.5, colour=muted('green')) +
   annotate("text", x = texas_mode, y = 0.59, label = "mode", size = 3.5, hjust = -.1, colour = muted('green')) +
   geom_density(from=1, to=9 , adjust = smooth, size=1.5 ) +
-  theme_bw() + 
-  ggtitle("Texas (most tweets)") + 
+  theme_bw() +
+  ggtitle("Texas (most tweets)") +
   xlab("LabMT Score") +
   ylab("Density")
 
@@ -88,7 +88,7 @@ vermont <- subset(anew_scores, state=='vermont')
 vermont_mean <- mean(vermont$anew_score)
 vermont_median <- median(vermont$anew_score)
 vermont_mode <- mode(vermont$anew_score)
-vermont_plot <- ggplot(vermont, aes(x=anew_score)) + 
+vermont_plot <- ggplot(vermont, aes(x=anew_score)) +
   geom_histogram(
     aes(y=..density..),
     binwidth=.5,
@@ -104,8 +104,8 @@ vermont_plot <- ggplot(vermont, aes(x=anew_score)) +
   geom_vline(aes(xintercept = vermont_mode), show_guide = TRUE, linetype = "longdash", size = 0.5, colour=muted('green')) +
   annotate("text", x = vermont_mode, y = 0.44, label = "mode", size = 3.5, hjust = -.1, colour = muted('green')) +
   geom_density(from=1, to=9 , adjust = smooth, size=1.5 ) +
-  theme_bw() + 
-  ggtitle("Vermont (least tweets)") + 
+  theme_bw() +
+  ggtitle("Vermont (least tweets)") +
   xlab("LabMT Score") +
   ylab("Density")
 
@@ -113,7 +113,7 @@ colorado <- subset(anew_scores, state=='colorado')
 colorado_mean <- mean(colorado$anew_score)
 colorado_median <- median(colorado$anew_score)
 colorado_mode <- mode(colorado$anew_score)
-colorado_plot <- ggplot(colorado, aes(x=anew_score)) + 
+colorado_plot <- ggplot(colorado, aes(x=anew_score)) +
   geom_histogram(
     aes(y=..density..),
     binwidth=.5,
@@ -129,8 +129,8 @@ colorado_plot <- ggplot(colorado, aes(x=anew_score)) +
   geom_vline(aes(xintercept = colorado_mode), show_guide = TRUE, linetype = "longdash", size = 0.5, colour=muted('green')) +
   annotate("text", x = colorado_mode, y = 0.52, label = "mode", size = 3.5, hjust = -.1, colour = muted('green')) +
   geom_density(from=1, to=9 , adjust = smooth, size=1.5 ) +
-  theme_bw() + 
-  ggtitle("Colorado (first in ranking)") + 
+  theme_bw() +
+  ggtitle("Colorado (first in ranking)") +
   xlab("LabMT Score") +
   ylab("Density")
 
@@ -138,7 +138,7 @@ georgia <- subset(anew_scores, state=='georgia')
 georgia_mean <- mean(georgia$anew_score)
 georgia_median <- median(georgia$anew_score)
 georgia_mode <- mode(georgia$anew_score)
-georgia_plot <- ggplot(georgia, aes(x=anew_score)) + 
+georgia_plot <- ggplot(georgia, aes(x=anew_score)) +
   geom_histogram(
     aes(y=..density..),
     binwidth=.5,
@@ -154,8 +154,8 @@ georgia_plot <- ggplot(georgia, aes(x=anew_score)) +
   geom_vline(aes(xintercept = georgia_mode), show_guide = TRUE, linetype = "longdash", size = 0.5, colour=muted('green')) +
   annotate("text", x = georgia_mode, y = 0.62, label = "mode", size = 3.5, hjust = -.2, colour = muted('green')) +
   geom_density(from=1, to=9 , adjust = smooth, size=1.5 ) +
-  theme_bw() + 
-  ggtitle("Georgia (last in ranking)") + 
+  theme_bw() +
+  ggtitle("Georgia (last in ranking)") +
   xlab("LabMT Score") +
   ylab("Density")
 

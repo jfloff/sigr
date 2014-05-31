@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(sp)
 library(ggplot2)
@@ -14,7 +14,7 @@ mode <- function(x) {
   }
   else
   {
-    d <- density(x, from=1, to=9 , adjust = 0.805) 
+    d <- density(x, from=1, to=9 , adjust = 0.805)
     d$x[which.max(d$y)]
   }
 }
@@ -31,7 +31,7 @@ counties_polygons = map_data('county')
 scale <- c(6.210000, 6.234657, 6.247939, 6.274504, 6.301069, 6.314351, 6.680000)
 
 # vector with mean by each state
-scores_mode <- sapply(split(anew_scores, anew_scores$county), 
+scores_mode <- sapply(split(anew_scores, anew_scores$county),
     function(x) {
       val <- round(mode(x$anew_score), digits=2)
       if (val>max(scale))
@@ -39,7 +39,7 @@ scores_mode <- sapply(split(anew_scores, anew_scores$county),
       else if (val < min(scale))
         min(scale)
       else
-        val 
+        val
     }
 )
 

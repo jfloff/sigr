@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(rjson)
 library(sp)
@@ -14,14 +14,14 @@ latlong2state <- function(pointsDF) {
   IDs <- sapply(strsplit(states$names, ":"), function(x) x[1])
   states_sp <- map2SpatialPolygons(states, IDs=IDs,
                                    proj4string=CRS("+proj=longlat +datum=wgs84"))
-  
-  # Convert pointsDF to a SpatialPoints object 
-  pointsSP <- SpatialPoints(pointsDF, 
+
+  # Convert pointsDF to a SpatialPoints object
+  pointsSP <- SpatialPoints(pointsDF,
                             proj4string=CRS("+proj=longlat +datum=wgs84"))
-  
-  # Use 'over' to get _indices_ of the Polygons object containing each point 
+
+  # Use 'over' to get _indices_ of the Polygons object containing each point
   indices <- over(pointsSP, states_sp)
-  
+
   # Return the state names of the Polygons object containing each point
   stateNames <- sapply(states_sp@polygons, function(x) x@ID)
   stateNames[indices]
@@ -39,10 +39,10 @@ i <- 1
 while (length(line <- readLines(con, n = 1, warn = FALSE)) > 0)
 {
   tweet <- fromJSON(line)
-  
+
   lats[[i]] <- tweet[['coordinates']][['lat']]
   lons[[i]] <- tweet[['coordinates']][['lon']]
-  
+
   i <- i + 1
 }
 

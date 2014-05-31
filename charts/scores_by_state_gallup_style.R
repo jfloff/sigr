@@ -1,4 +1,4 @@
-setwd("~/Code/twitter-mood")
+setwd("~/Code/HappiTweet")
 
 library(sp)
 library(ggplot2)
@@ -58,7 +58,7 @@ states_polygons$quantiles <- sapply(states_polygons$scores_mode, function(x) get
 map = ggplot(states_polygons) +
   aes(long, lat, group=group) +
   geom_polygon() +
-  aes(fill=quantiles) + 
+  aes(fill=quantiles) +
   labs(fill = "Quintiles") +
   theme_bw() +
   theme(legend.position = "bottom",
@@ -68,7 +68,7 @@ map = ggplot(states_polygons) +
         axis.ticks=element_blank(),
         axis.title.x=element_blank(),
         axis.title.y=element_blank()
-  ) + 
+  ) +
   scale_fill_manual(values = c('#689A27','#4DA7C1','#E7CD44','#E87625','#C53D27'))
 
 # 2013
