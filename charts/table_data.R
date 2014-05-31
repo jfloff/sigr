@@ -5,6 +5,7 @@ library(reshape)
 library(scales)
 library(tableplot)
 library(plyr)
+library(xtable)
 
 mode <- function(x) {
   d <- density(x, from=1, to=9 , adjust = 0.805)
@@ -73,6 +74,9 @@ cor(gallup$tweets, gallup$anew_ranking)
 cor(gallup$tweets, gallup$anew_score_mode)
 
 # reorder columns
-gallup <- gallup[c("state", "tweets", "anew_ranking", "gallup_ranking", "geo_happy_ranking", "gallup_score", "geo_happy_score", "anew_score_mode",  "mode_diff", "anew_score_median", "median_diff", "anew_score_mean", "mean_diff", "anew_score_sd")]
+gallup <- gallup[c("state", "tweets", "anew_ranking", "gallup_ranking", "gallup_score", "anew_score_mode",  "mode_diff", "anew_score_median", "median_diff", "anew_score_mean", "mean_diff", "anew_score_sd")]
 gallup <- gallup[with(gallup, order(anew_ranking)), ]
 gallup
+
+table <- xtable(gallup)
+print(table)
