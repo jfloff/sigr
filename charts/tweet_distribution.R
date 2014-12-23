@@ -144,7 +144,7 @@ georgia_plot <- ggplot(georgia, aes(x=anew_score)) +
     binwidth=.5,
     colour="black", fill="white"
   ) +
-  scale_y_continuous(expand=c(0.001,0), breaks=pretty_breaks(n=10)) +
+  scale_y_continuous(expand=c(0.01,0), breaks=pretty_breaks(n=10)) +
   expand_limits(y = 0.69) +
   scale_x_continuous(expand=c(0.001,0.001), breaks=pretty_breaks(n=10)) +
   geom_vline(aes(xintercept = georgia_mean), show_guide = TRUE, linetype = "longdash", size = 0.5, colour='red') +
