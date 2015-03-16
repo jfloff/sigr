@@ -5,8 +5,8 @@
 *.RData
 *.Rhistory
 *.pem
-data/
 .DS_Store
 vadara.pen
 paper/Output/
 paper/papers/
+data/geo_tweets
